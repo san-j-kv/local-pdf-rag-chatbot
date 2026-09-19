@@ -1,8 +1,9 @@
 # local-pdf-rag-chatbot
 
-Chat with a PDF, entirely on your own machine. Upload a document, ask questions, and get
-answers grounded in what the document actually says — with a built-in refusal when the answer
-isn't in there.
+Ask questions about a PDF and get answers drawn from its contents — all on your own machine.
+Upload a document, ask a question in plain language, and the app finds the passages that
+address it and has a local language model answer from those passages alone. When the document
+doesn't cover the question, it says so rather than guessing.
 
 **Nothing leaves your computer.** The language model runs locally through
 [Ollama](https://ollama.com), the vector store is a local [ChromaDB](https://www.trychroma.com)
