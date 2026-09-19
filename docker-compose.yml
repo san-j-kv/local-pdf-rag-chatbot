@@ -1,0 +1,28 @@
+services:
+  pdf-chat:
+    build: .
+    image: pdf-chat-streamlit
+    ports:
+      - "8501:8501"
+    environment:
+      # Ollama runs natively on your machine, not in Docker.
+      # Note: OLLAMA_URL (the app's client URL) is deliberately NOT called
+      # OLLAMA_HOST -- on your host machine that name means Ollama's BIND
+      # address, which you must set to 0.0.0.0 for this to work. See README.
+      OLLAMA_URL: http://host.docker.internal:11434
+      CHAT_MODEL: ${CHAT_MODEL:-llama3.2}
+      EMBED_MODEL: ${EMBED_MODEL:-nomic-embed-text}
+      RELEVANCE_MAX_DISTANCE: ${RELEVANCE_MAX_DISTANCE:-0.55}
+      CHROMA_PATH: /data/chroma
+    # Docker Desktop (Windows/Mac) already resolves host.docker.internal.
+    # This line makes the same setup work on Linux too.
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      # Keeps embedded documents between restarts.
+      - chroma_data:/data/chroma
+    # Run-once demo default; switch to unless-stopped if you want it always up.
+    restart: "no"
+
+volumes:
+  chroma_data:

@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Local vector store (created when running outside Docker)
+chroma_data/
+
+# Local config
+.env
+
+# Test documents -- keep personal PDFs out of the repo
+*.pdf

@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.git/
+.gitignore
+chroma_data/
+*.pdf
+.env
+.env.example
+README.md
+LICENSE
