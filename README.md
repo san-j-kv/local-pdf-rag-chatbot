@@ -8,12 +8,24 @@ isn't in there.
 [Ollama](https://ollama.com), the vector store is a local [ChromaDB](https://www.trychroma.com)
 directory, and the app makes no outbound calls. No API keys, no cloud costs, no telemetry.
 
+<!-- TODO: add a screenshot or short GIF of the app here, e.g. ![Demo](docs/demo.gif) -->
+
+**Who it's for:** anyone who can't send sensitive documents to third-party AI services, and
+anyone evaluating what a fully private document Q&A setup looks like in practice.
+
+> **Proof of concept.** This project demonstrates that private, no-per-query-fee document Q&A
+> is feasible. Because the language model runs locally through Ollama, answers are **slow on
+> modest hardware** (for example, a laptop with 8 GB of RAM), and speed depends heavily on your
+> machine. It is not a production-speed system. See [Path to production](#path-to-production)
+> for ways to make it faster.
+
 ### Project history
 
-The vector-base workflow was originally prototyped in [Langflow](https://www.langflow.org/).
-What ships here is plain Python (Streamlit + ChromaDB + the Ollama client) — you don't need
-Langflow to run it. If you come across this project under the older name
-`rag-chatbot-langflow`, that's why.
+The RAG workflow (document ingestion, embeddings, retrieval and answer generation) was
+originally designed and prototyped in [Langflow](https://www.langflow.org/). The app that ships
+here was then built with [Claude Code](https://www.anthropic.com/claude-code), directed and
+tested by the author. What ships is plain Python (Streamlit + ChromaDB + the Ollama client) —
+you don't need Langflow to run it.
 
 ---
 
@@ -221,8 +233,7 @@ Then open **http://localhost:8501**.
 - **Works the same on every OS.** The Linux bind step above becomes unnecessary, because the
   app talks to `http://localhost:11434` directly rather than across a container boundary
 - **Faster to start**, and no multi-minute first build
-- **Easier to hack on.** Edit `app.py` and Streamlit hot-reloads; no rebuild, no `cap sync`
-  equivalent
+- **Easier to hack on.** Edit `app.py` and Streamlit hot-reloads; no rebuild needed
 - Embedded documents land in a plain `./chroma_data` folder you can inspect or delete directly
 
 **What you give up**
@@ -239,6 +250,28 @@ Then open **http://localhost:8501**.
 - Running as a non-root user with a read-only-ish filesystem, which the container gives you free
 
 **Rule of thumb:** use Docker to *run* it, skip Docker to *modify* it.
+
+## Path to production
+
+This is a proof of concept. Below are two realistic routes to a faster, shared version. They
+are recommendations only and are **not implemented in this repo**.
+
+**Shared in-house machine — small teams with strict privacy needs.** Run the app and Ollama on
+one machine with a capable GPU (or a Mac with plenty of unified memory) and let staff open it
+from a browser over the office network. Documents stay in-house, and responses are usually much
+faster than on a CPU-only laptop. Before doing this, **add user authentication**: as noted in
+[Privacy](#privacy), the app has no login and is bound to `127.0.0.1` by default.
+
+**Private model in your own cloud account — faster, with less maintenance.** Run the language
+model inside the organization's own cloud account, under contractual data-protection terms (for
+example, no training on your data). You pay per use, speed is high, and there is no hardware to
+maintain. The trade-off is that documents leave the local machine, though they stay within the
+organization's contractual and compliance boundary. This route needs a code change (the app
+currently talks only to Ollama) as well as authentication.
+
+Which route fits depends on how many people use it, how strict the privacy requirement is, and
+how often it's used. At low or occasional usage, per-use pricing is usually cheaper than
+running dedicated hardware.
 
 ## License
 
