@@ -3,12 +3,15 @@ services:
     build: .
     image: pdf-chat-streamlit
     ports:
-      - "8501:8501"
+      # Bound to loopback on purpose: the app has no authentication, so a bare
+      # "8501:8501" would let anyone on your network read the documents you
+      # upload. Change it only if you knowingly want that.
+      - "127.0.0.1:8501:8501"
     environment:
       # Ollama runs natively on your machine, not in Docker.
       # Note: OLLAMA_URL (the app's client URL) is deliberately NOT called
-      # OLLAMA_HOST -- on your host machine that name means Ollama's BIND
-      # address, which you must set to 0.0.0.0 for this to work. See README.
+      # OLLAMA_HOST -- on your host machine that name means the address Ollama
+      # BINDS to, which is a different thing. See the README.
       OLLAMA_URL: http://host.docker.internal:11434
       CHAT_MODEL: ${CHAT_MODEL:-llama3.2}
       EMBED_MODEL: ${EMBED_MODEL:-nomic-embed-text}

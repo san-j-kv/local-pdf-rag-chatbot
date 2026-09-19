@@ -89,6 +89,17 @@ sudo systemctl daemon-reload && sudo systemctl restart ollama
 > machine. On a home network behind a router that's normally fine. On a shared or public network
 > (café, hotel, office wifi), consider setting it back to `127.0.0.1` when you're done.
 
+## Privacy
+
+- **Nothing is sent anywhere.** The models run locally via Ollama; there are no API keys and
+  no outbound requests. Streamlit's usage telemetry is switched off in the Dockerfile.
+- **The app is bound to `127.0.0.1`**, so it's reachable only from your own computer. It has
+  **no login**, so if you change the port mapping in `docker-compose.yml` to a bare
+  `"8501:8501"`, everyone on your network can read the documents you upload. Only do that on a
+  network you trust.
+- **Uploaded documents persist** as embedded text in the `chroma_data` Docker volume until you
+  remove it with `docker compose down -v`.
+
 ## Configuration
 
 All optional. Copy `.env.example` to `.env` and edit, or set them in your shell — Compose picks
