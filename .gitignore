@@ -12,3 +12,5 @@ chroma_data/
 
 # Test documents -- keep personal PDFs out of the repo
 *.pdf
+# ...except the checked-in sample the README points at.
+!samples/*.pdf

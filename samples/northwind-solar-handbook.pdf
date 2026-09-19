@@ -1,0 +1,115 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 4 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 7 0 R >> >> /Contents 5 0 R >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 7 0 R >> >> /Contents 6 0 R >>
+endobj
+5 0 obj
+<< /Length 831 >>
+stream
+BT
+/F1 11 Tf
+54 750 Td
+16 TL
+(Northwind Solar - Installation Handbook) Tj
+T*
+() Tj
+T*
+(Section 1: Overview) Tj
+T*
+(The Northwind NS-400 is a residential rooftop solar array rated at) Tj
+T*
+(400 watts per panel. A standard household installation uses twelve) Tj
+T*
+(panels for a combined output of 4.8 kilowatts.) Tj
+T*
+() Tj
+T*
+(Section 2: Site Requirements) Tj
+T*
+(Panels require a south-facing roof with a pitch between 15 and 40) Tj
+T*
+(degrees. The mounting rail must be anchored into rafters, never into) Tj
+T*
+(sheathing alone. Minimum clearance from any roof edge is 300 mm.) Tj
+T*
+() Tj
+T*
+(Section 3: Electrical) Tj
+T*
+(Each string connects to the NS-Link inverter, which supports a maximum) Tj
+T*
+(of sixteen panels. The inverter must be installed indoors, within three) Tj
+T*
+(metres of the main consumer unit.) Tj
+T*
+ET
+endstream
+endobj
+6 0 obj
+<< /Length 881 >>
+stream
+BT
+/F1 11 Tf
+54 750 Td
+16 TL
+(Northwind Solar - Installation Handbook \(page 2\)) Tj
+T*
+() Tj
+T*
+(Section 4: Warranty) Tj
+T*
+(Panels carry a 25-year performance warranty guaranteeing at least 85) Tj
+T*
+(percent of rated output at year 25. The NS-Link inverter carries a) Tj
+T*
+(separate 10-year warranty. Labour is covered for the first 2 years.) Tj
+T*
+() Tj
+T*
+(Section 5: Maintenance) Tj
+T*
+(Rinse panels with clean water twice per year. Do not use detergents or) Tj
+T*
+(abrasive brushes, as these void the performance warranty. Inspect the) Tj
+T*
+(mounting bolts annually and torque them to 18 newton metres.) Tj
+T*
+() Tj
+T*
+(Section 6: Support) Tj
+T*
+(Registered installers may contact technical support for diagnostics.) Tj
+T*
+(Fault code E-14 indicates a string voltage mismatch and usually means) Tj
+T*
+(one panel in the string has been shaded or wired in reverse.) Tj
+T*
+ET
+endstream
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000121 00000 n 
+0000000247 00000 n 
+0000000373 00000 n 
+0000001255 00000 n 
+0000002187 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+2257
+%%EOF

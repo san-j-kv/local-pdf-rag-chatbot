@@ -1,0 +1,4 @@
+# PDFs are binary. The sample below is uncompressed and contains no NUL bytes,
+# so git's binary auto-detection would treat it as text and mangle it under
+# core.autocrlf=true on Windows. Be explicit.
+*.pdf binary

@@ -63,6 +63,20 @@ Then open **http://localhost:8501**.
 
 On Docker Desktop that's it — you should land straight on the upload screen.
 
+### Try it with the sample document
+
+No PDF handy? Upload [`samples/northwind-solar-handbook.pdf`](samples/northwind-solar-handbook.pdf)
+— two pages of a fictional solar-panel handbook — and ask:
+
+| Ask | What it shows |
+| --- | --- |
+| *What is the warranty period for the panels?* | A grounded answer, with the page cited: **(p. 2)** |
+| *What does fault code E-14 mean?* | It answers, then names the part of your question the document doesn't cover |
+| *Who won the 2022 football World Cup?* | *"I couldn't find that in the uploaded document."* |
+
+That last one is the point of the whole app. The question never reaches the language model —
+nothing in the document is close enough to the question, so it declines instead of guessing.
+
 ### Linux: let Ollama accept connections from Docker
 
 Skip this on Windows and macOS. On Linux, the container reaches your machine over Docker's
