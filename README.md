@@ -8,8 +8,6 @@ isn't in there.
 [Ollama](https://ollama.com), the vector store is a local [ChromaDB](https://www.trychroma.com)
 directory, and the app makes no outbound calls. No API keys, no cloud costs, no telemetry.
 
-<!-- TODO: add a screenshot or short GIF of the app here, e.g. ![Demo](docs/demo.gif) -->
-
 **Who it's for:** anyone who can't send sensitive documents to third-party AI services, and
 anyone evaluating what a fully private document Q&A setup looks like in practice.
 
