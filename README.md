@@ -35,22 +35,34 @@ Linux it needs one extra step; see [Linux: let Ollama accept connections from Do
 
 ## Prerequisites
 
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/) (or Docker Engine + Compose)
-- [Ollama](https://ollama.com/download), installed and running
+Install both before you start. Order doesn't matter, but both must be in place before step 3.
+
+- **[Docker Desktop](https://www.docker.com/products/docker-desktop/)** (or Docker Engine +
+  Compose) — and actually running; look for the whale icon in your tray or menu bar
+- **[Ollama](https://ollama.com/download)** — installs as a background service and starts on
+  its own
 
 ## Setup
 
-### 1. Pull the models
+### 1. Get the code
+
+```bash
+git clone https://github.com/san-j-kv/local-pdf-rag-chatbot.git
+cd local-pdf-rag-chatbot
+```
+
+### 2. Pull the models — optional
 
 ```bash
 ollama pull llama3.2
 ollama pull nomic-embed-text
 ```
 
-Roughly 2.3 GB in total. (If you skip this, the app will offer to download them for you on
-first run.)
+Roughly 2.3 GB in total. **You can skip this**: if the models are missing, the app shows a
+"Download required models" button on first run and pulls them for you with a progress bar.
+Doing it here is just faster.
 
-### 2. Start the app
+### 3. Start the app
 
 ```bash
 docker compose up --build
@@ -59,9 +71,24 @@ docker compose up --build
 The first build takes a few minutes — ChromaDB pulls in `onnxruntime` and friends. Later starts
 are fast.
 
-Then open **http://localhost:8501**.
+### 4. Open it
 
-On Docker Desktop that's it — you should land straight on the upload screen.
+**http://localhost:8501**
+
+Nothing answers that address until step 3 is running — installing Ollama alone doesn't start
+anything on port 8501.
+
+### What you'll see on first run
+
+| Situation | What appears |
+| --- | --- |
+| Ollama isn't installed or isn't running | *"I can't reach Ollama"*, with a fix for your OS |
+| Ollama is running, models not pulled | A warning, the `ollama pull` commands, and a download button |
+| Ollama is running, models present | **The upload screen — ready to use** |
+
+If port 8501 is already taken by something else, the container will start but the page won't
+load. Change the host side of the mapping in `docker-compose.yml` (for example
+`"127.0.0.1:8601:8501"`) and use that port instead.
 
 ### Try it with the sample document
 
@@ -173,15 +200,45 @@ The `-v` removes the `chroma_data` volume along with every embedded document.
 
 ## Running without Docker
 
+Docker isn't required. With Python 3.12+ installed, Ollama becomes the only prerequisite:
+
 ```bash
 python -m venv .venv
 source .venv/bin/activate      # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-streamlit run app.py
+streamlit run app.py --server.address=127.0.0.1
 ```
 
-No Ollama networking changes are needed in this case — the app talks to
-`http://localhost:11434` directly.
+Then open **http://localhost:8501**.
+
+> The `--server.address=127.0.0.1` matters. Streamlit's default is to listen on *all*
+> interfaces, and this app has no login — without that flag, anyone on your network could open
+> it and read the documents you upload. The Docker setup handles this for you.
+
+**What you gain**
+
+- **No Docker at all** — one less large install, and nothing to keep running in the background
+- **Works the same on every OS.** The Linux bind step above becomes unnecessary, because the
+  app talks to `http://localhost:11434` directly rather than across a container boundary
+- **Faster to start**, and no multi-minute first build
+- **Easier to hack on.** Edit `app.py` and Streamlit hot-reloads; no rebuild, no `cap sync`
+  equivalent
+- Embedded documents land in a plain `./chroma_data` folder you can inspect or delete directly
+
+**What you give up**
+
+- **Dependency isolation.** `chromadb`, `streamlit` and `onnxruntime` are pinned for a reason;
+  installed into a shared environment they can collide with your other projects. Use a venv —
+  the commands above do
+- **A known-good Python.** The image pins 3.12; your system Python may be older or newer, and
+  `chromadb` in particular is sensitive to this
+- **Reproducibility.** "Works on my machine" problems become yours to debug rather than the
+  image's to prevent
+- **The safe default binding.** Compose binds the app to `127.0.0.1` for you; Streamlit's own
+  default listens on every interface. Remembering the flag above is now on you
+- Running as a non-root user with a read-only-ish filesystem, which the container gives you free
+
+**Rule of thumb:** use Docker to *run* it, skip Docker to *modify* it.
 
 ## License
 
